@@ -8,14 +8,14 @@
         body {
             margin: 0;
             padding: 0;
-            background-image: url('/Resources/plantilla_Portada.png');
+            background-image: url('./Resources/plantilla_Portada.png');
             background-size: 100vw 100vh;
             background-repeat: no-repeat;
             background-attachment: fixed;
             overflow: hidden;
         }
 
-        #fullscreen-video {
+        #fullscreen-gif {
             position: fixed;
             top: 0;
             left: 0;
@@ -23,30 +23,29 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            animation: showGif 5s ease-in-out 2s forwards;
+        }
+
+        @keyframes showGif {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
     </style>
 </head>
 
 <body>
-    <video id="fullscreen-video" autoplay controls>
-        <source src="/Resources/Radar.gif" type="video/gif">
-        Tu navegador no soporta el formato de video.
-    </video>
+    <img id="fullscreen-gif" src="./Resources/Radar.gif" alt="GIF no compatible con tu navegador.">
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            var video = document.getElementById("fullscreen-video");
+            var gif = document.getElementById("fullscreen-gif");
 
-            video.addEventListener("canplaythrough", function () {
-                setTimeout(function () {
-                    video.style.opacity = 1;
-                    video.play();
-                }, 2000);
-            });
-
-            video.addEventListener("ended", function () {
-                window.location.href = "/Index/CuentaAtras.html";
+            gif.addEventListener("animationend", function () {
+                window.location.href = "./Index/CuentaAtras.html";
             });
         });
     </script>
