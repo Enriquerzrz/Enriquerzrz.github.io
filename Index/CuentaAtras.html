@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<link type="text/css" rel="stylesheet" href="clock_assets/flipclock.css" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuenta Atras</title>
+    <link rel="stylesheet" href="../styles/stylesIndex.css">
+</head>
+
+<body>
+    <div class="message-display" id="messageDisplay"></div>
+
+    <!-- ++++++++++++++++++++++++++ IMG ++++++++++++++++++++++++++ -->
+    <img class="centered-image" src="../Resources/teclados_Tablet.png" alt="Imagen centrada">
+
+    <!-- ++++++++++++++++++++++++++ CLOCK ++++++++++++++++++++++++++ -->
+    <div class="clock">
+        <div class="clock-builder-output"></div>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript" src="clock_assets/flipclock.js"></script>
+        <style text="text/css">
+            body .flip-clock-wrapper ul li a div div.inn,
+            body .flip-clock-small-wrapper ul li a div div.inn {
+                color: #CCCCCC;
+                background-color: #333333;
+            }
+
+            body .flip-clock-dot,
+            body .flip-clock-small-wrapper .flip-clock-dot {
+                background: #323434;
+            }
+
+            body .flip-clock-wrapper .flip-clock-meridium a,
+            body .flip-clock-small-wrapper .flip-clock-meridium a {
+                color: #323434;
+            }
+        </style>
+        <script type="text/javascript">
+            $(function () {
+                FlipClock.Lang.Custom = { days: ' ', hours: ' ', minutes: ' ', seconds: ' ' };
+                var opts = {
+                    clockFace: 'MinuteCounter',
+                    countdown: true,
+                    language: 'Custom'
+                };
+                var countdown = (((new Date().getTime()) / 1000) + 45 * 60) - ((new Date().getTime()) / 1000);
+                countdown = Math.max(1, countdown);
+                $('.clock-builder-output').FlipClock(countdown, opts);
+            });
+        </script>
+    </div>
+
+    <!-- ++++++++++++++++++++++++++ INPUT ++++++++++++++++++++++++++ -->
+    <div class="center-content">
+        <h2 class="basic-text">Сщвшпщ дфтяфьшутещ</h2>
+        <input class="input-field" type="text" placeholder="Интродуце эль кодиго...">
+    </div>
+
+    <!-- ++++++++++++++++++++++++++ RUSSIAN KEAYBOARD ++++++++++++++++++++++++++ -->
+    <div class="russian-keyboard">
+        <button class="keyboard-button">Й</button>
+        <button class="keyboard-button">Ц</button>
+        <button class="keyboard-button">У</button>
+        <button class="keyboard-button">К</button>
+        <button class="keyboard-button">Е</button>
+        <button class="keyboard-button">Н</button>
+        <button class="keyboard-button">Г</button>
+        <button class="keyboard-button">Ш</button>
+        <button class="keyboard-button">Щ</button>
+        <button class="keyboard-button">З</button>
+        <button class="keyboard-button">Х</button>
+        <button class="keyboard-button">Ъ</button>
+        <button class="keyboard-button">Ф</button>
+        <button class="keyboard-button">Ы</button>
+        <button class="keyboard-button">В</button>
+        <button class="keyboard-button">А</button>
+        <button class="keyboard-button">П</button>
+        <button class="keyboard-button">Р</button>
+        <button class="keyboard-button">О</button>
+        <button class="keyboard-button">Л</button>
+        <button class="keyboard-button">Д</button>
+        <button class="keyboard-button">Ж</button>
+        <button class="keyboard-button">Э</button>
+        <button class="keyboard-button">Я</button>
+        <button class="keyboard-button">Ч</button>
+        <button class="keyboard-button">С</button>
+        <button class="keyboard-button">М</button>
+        <button class="keyboard-button">И</button>
+        <button class="keyboard-button">Т</button>
+        <button class="keyboard-button">Ь</button>
+        <button class="keyboard-button">Б</button>
+        <button class="keyboard-button">Ю</button>
+        <button class="keyboard-button" id="backspace">←</button>
+    </div>
+
+    <div class="enter-button">
+        <button class="keyboard-button-enter">ДФТЯФК</button>
+        <button class="keyboard-button-stop">Стоп</button>
+    </div>
+
+
+    <script>
+        // Manejador de eventos para el teclado ruso
+        const keyboardButtons = document.querySelectorAll('.keyboard-button');
+        const inputField = document.querySelector('.input-field');
+        const backspaceButton = document.getElementById('backspace');
+        const enterButton = document.querySelector('.enter-button button');
+        const countdownDisplay = document.querySelector('.clock-builder-output');
+        const stopButton = document.querySelector('.keyboard-button-stop');
+
+        let countdown;
+        let countdownInterval;
+
+        keyboardButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (button === backspaceButton) {
+                    inputField.value = inputField.value.slice(0, -1);
+                } else {
+                    inputField.value += button.textContent;
+                }
+            });
+        });
+
+        function stopCountdown() {
+            clearInterval(countdownInterval);
+            countdownDisplay.innerHTML = " ";
+            const messageDisplay = document.getElementById('messageDisplay');
+            messageDisplay.innerHTML = '<h2 class="basic-text" style="margin-right: 10px;">Обратный отсчет остановлен</h2>';
+        }
+
+        function stopCountdown2() {
+            clearInterval(countdownInterval);
+            countdownDisplay.innerHTML = " ";
+            const messageDisplay = document.getElementById('messageDisplay');
+            messageDisplay.innerHTML = '<h2 class="basic-text blinking-text" style="margin-right: 10px;">Счет отменен</h2>';
+        }
+
+
+        function startCountdown(seconds) {
+            const startTime = new Date().getTime() / 1000;
+            countdownInterval = setInterval(() => {
+                const currentTime = new Date().getTime() / 1000;
+                countdown = seconds - (currentTime - startTime);
+                if (countdown <= 0) {
+                    stopCountdown();
+                }
+                countdownDisplay.innerHTML = countdown.toFixed(0) + ' segundos';
+            }, 1000);
+        }
+
+        enterButton.addEventListener('click', () => {
+            if (inputField.value === 'Й') {
+                stopCountdown();
+            } else {
+                alert('Error: Texto incorrecto');
+            }
+        });
+
+        // Manejador de evento para el botón "Стоп"
+        stopButton.addEventListener('click', () => {
+            stopCountdown2();
+        });
+    </script>
+
+    </div>
+
+</body>
+
+</html>
