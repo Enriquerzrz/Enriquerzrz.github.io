@@ -23,20 +23,31 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            animation: showGif 10s ease-in-out 2s forwards;
-        }
-
-        @keyframes showGif {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
+            transition: opacity 1s ease-in-out;
         }
     </style>
 </head>
 
+<body>
+    <img id="fullscreen-gif" src="./Resources/Radar.gif" alt="GIF animado">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var gif = document.getElementById("fullscreen-gif");
+
+            gif.onload = function () {
+                setTimeout(function () {
+                    gif.style.opacity = 1;
+                    setTimeout(function () {
+                        window.location.href = "./other/CuentaAtras.html";
+                    }, 20000);
+                }, 2000);
+            };
+        });
+    </script>
+</body>
+
+</html>
 <body>
     <img id="fullscreen-gif" src="./Resources/Radar.gif" alt="GIF no compatible con tu navegador.">
 
