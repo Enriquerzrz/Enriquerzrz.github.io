@@ -156,3 +156,77 @@ body {
 .blinking-text {
     animation: blinking 1s infinite;
 }
+
+@keyframes blink1 {
+
+    0%,
+    50%,
+    100% {
+        opacity: 0;
+    }
+
+    25%,
+    75% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink2 {
+
+    0%,
+    40%,
+    100% {
+        opacity: 0;
+    }
+
+    20%,
+    60% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink3 {
+
+    0%,
+    60%,
+    100% {
+        opacity: 0;
+    }
+
+    30%,
+    70% {
+        opacity: 1;
+    }
+}
+
+.blinking-image {
+    position: absolute;
+    animation-duration: 3.8s;
+    animation-iteration-count: infinite;
+    transform-origin: top left;
+}
+
+/* Estilo para la imagen 1 */
+.image1 {
+    width: 500px;
+    top: 100px;
+    left: 100px;
+    animation-name: blink1;
+}
+
+/* Estilo para la imagen 2 */
+.image2 {
+    width: 420px;
+    top: 38%;
+    left: 40%;
+    z-index: 10000;
+    animation-name: blink2;
+}
+
+/* Estilo para la imagen 3 */
+.image3 {
+    width: 350px;
+    top: 10%;
+    left: 70%;
+    animation-name: blink3;
+}
