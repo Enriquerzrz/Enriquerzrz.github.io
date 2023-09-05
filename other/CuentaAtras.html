@@ -37,25 +37,12 @@
                 color: #323434;
             }
         </style>
-        <script type="text/javascript">
-            $(function () {
-                FlipClock.Lang.Custom = { days: ' ', hours: ' ', minutes: ' ', seconds: ' ' };
-                var opts = {
-                    clockFace: 'MinuteCounter',
-                    countdown: true,
-                    language: 'Custom'
-                };
-                var countdown = (((new Date().getTime()) / 1000) + 45 * 60) - ((new Date().getTime()) / 1000);
-                countdown = Math.max(1, countdown);
-                $('.clock-builder-output').FlipClock(countdown, opts);
-            });
-        </script>
     </div>
 
     <!-- ++++++++++++++++++++++++++ INPUT ++++++++++++++++++++++++++ -->
     <div class="center-content">
-        <h2 class="basic-text">Сщвшпщ дфтяфьшутещ</h2>
-        <input class="input-field" type="text" placeholder="Интродуце эль кодиго...">
+        <h2 class="basic-text">ENTER THE CODE</h2>
+        <input class="input-field" id="inputCodes" type="text" placeholder="WRITE HERE ...">
     </div>
 
     <!-- ++++++++++++++++++++++++++ RUSSIAN KEAYBOARD ++++++++++++++++++++++++++ -->
@@ -96,9 +83,21 @@
     </div>
 
     <div class="enter-button">
-        <button class="keyboard-button-enter">ДФТЯФК</button>
-        <button class="keyboard-button-stop">Стоп</button>
+        <button class="keyboard-button-enter">ENTER</button>
     </div>
+
+
+    <!-- ++++++++++++++++++++++++++ SOUNDS ++++++++++++++++++++++++++ -->
+
+    <audio id="alertSound" hidden>
+        <source src="../Resources/nuclearAlert.mp3" type="audio/mpeg">
+        Tu navegador no admite audio HTML5.
+    </audio>
+
+    <audio id="clock-tick" hidden>
+        <source src="../Resources/beep.mp3" type="audio/mpeg">
+        Tu navegador no admite audio HTML5.
+    </audio>
 
 
     <script>
@@ -127,40 +126,122 @@
             clearInterval(countdownInterval);
             countdownDisplay.innerHTML = " ";
             const messageDisplay = document.getElementById('messageDisplay');
-            messageDisplay.innerHTML = '<h2 class="basic-text" style="margin-right: 10px;">Обратный отсчет остановлен</h2>';
+            messageDisplay.innerHTML = '<h2 class="basic-text" style="margin-right: 10px;">COUNTDOWN STOPPED<</h2>';
         }
 
-        function stopCountdown2() {
+        function stopCountdownEmergency() {
             clearInterval(countdownInterval);
-            countdownDisplay.innerHTML = " ";
-            const messageDisplay = document.getElementById('messageDisplay');
-            messageDisplay.innerHTML = '<h2 class="basic-text blinking-text" style="margin-right: 10px;">Счет отменен</h2>';
+            countdownDisplay.innerHTML = "";
+            const msg = document.getElementById('messageDisplay');
+            msg.innerHTML = '<h2 class="basic-text blinking-text" style="margin-right: 10px;">MISSILE LAUNCH FAILURE LEAVE THE AREA IMMEDIATELY</h2>';
+
+            const image1 = document.createElement('img');
+            image1.src = '../Resources/danger1.png';
+            image1.className = 'blinking-image image1';
+
+            const image2 = document.createElement('img');
+            image2.src = '../Resources/danger2.png';
+            image2.className = 'blinking-image image2';
+
+            const image3 = document.createElement('img');
+            image3.src = '../Resources/exit1.png';
+            image3.className = 'blinking-image image3';
+
+            document.body.appendChild(image1);
+            document.body.appendChild(image2);
+            document.body.appendChild(image3);
+
+            const alertSound = document.getElementById('alertSound');
+            alertSound.play();
+        }
+
+        function startCountdownOTAN() {
+            const msg = document.getElementById('messageDisplay');
+            msg.innerHTML = ' ';
+            $(function () {
+                FlipClock.Lang.Custom = { days: ' ', hours: ' ', minutes: ' ', seconds: ' ' };
+                var opts = {
+                    clockFace: 'MinuteCounter',
+                    countdown: true,
+                    language: 'Custom',
+                    callbacks: {
+                        stop: function () {
+                            stopCountdownEmergency();
+                        },
+                        interval: function () {
+                            wait(10)
+                            playClockTickSound();
+                        }
+                    }
+
+                };
+                var countdown = (((new Date().getTime()) / 1000) + 0.5 * 60) - ((new Date().getTime()) / 1000);
+                countdown = Math.max(1, countdown);
+                $('.clock-builder-output').FlipClock(countdown, opts);
+            });
+        }
+
+        function startCountdownRUS() {
+            const msg = document.getElementById('messageDisplay');
+            msg.innerHTML = ' ';
+            $(function () {
+                FlipClock.Lang.Custom = { days: ' ', hours: ' ', minutes: ' ', seconds: ' ' };
+                var opts = {
+                    clockFace: 'MinuteCounter',
+                    countdown: true,
+                    language: 'Custom',
+                    callbacks: {
+                        stop: function () {
+                            stopCountdownEmergency();
+                        },
+                        interval: function () {
+                            wait(10)
+                            playClockTickSound();
+                        }
+                    }
+
+                };
+                var countdown = (((new Date().getTime()) / 1000) + 0.5 * 60) - ((new Date().getTime()) / 1000);
+                countdown = Math.max(1, countdown);
+                $('.clock-builder-output').FlipClock(countdown, opts);
+            });
+        }
+
+        function playClockTickSound() {
+            const alertSound = document.getElementById('clock-tick');
+            alertSound.play();
         }
 
 
-        function startCountdown(seconds) {
-            const startTime = new Date().getTime() / 1000;
-            countdownInterval = setInterval(() => {
-                const currentTime = new Date().getTime() / 1000;
-                countdown = seconds - (currentTime - startTime);
-                if (countdown <= 0) {
-                    stopCountdown();
-                }
-                countdownDisplay.innerHTML = countdown.toFixed(0) + ' segundos';
-            }, 1000);
+        function wait(ms) {
+            return new Promise(resolve => {
+                setTimeout(resolve, ms);
+            });
         }
-
         enterButton.addEventListener('click', () => {
+            // STOP COUNT OTAN
             if (inputField.value === 'Й') {
                 stopCountdown();
-            } else {
-                alert('Error: Texto incorrecto');
             }
-        });
+            // STOP COUNT RUS
+            else if (inputField.value === 'Ц') {
+                stopCountdown();
+            }
+            // START COUNT OTAN
+            else if (inputField.value === 'У') {
+                startCountdownOTAN();
+            }
+            // START COUNT RUS
+            else if (inputField.value === 'К') {
+                startCountdownRUS();
+            }
+            // ERROR
+            else {
+                alert('WROMG CODE');
+            }
 
-        // Manejador de evento para el botón "Стоп"
-        stopButton.addEventListener('click', () => {
-            stopCountdown2();
+            const input = document.getElementById('inputCodes');
+            input.value = '';
         });
     </script>
 
