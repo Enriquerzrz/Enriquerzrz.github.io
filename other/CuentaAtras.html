@@ -123,16 +123,19 @@
         });
 
         function stopCountdown() {
-            stopClockTickSound();
             clearInterval(countdownInterval);
             countdownDisplay.innerHTML = " ";
+
+            if (countdownInstance) {
+                countdownInstance.stop();
+                countdownInstance = null;
+            }
+
             const messageDisplay = document.getElementById('messageDisplay');
-            messageDisplay.innerHTML = '<h2 class="basic-text" style="margin-right: 10px;">COUNTDOWN STOPPED<</h2>';
+            messageDisplay.innerHTML = '<h2 class="basic-text" style="margin-right: 10px;">COUNTDOWN STOPPED</h2>';
         }
 
-        function stopCountdownEmergency() {
-            stopClockTickSound();
-            
+        function stopCountdownEmergency() {            
             clearInterval(countdownInterval);
             countdownDisplay.innerHTML = "";
             const msg = document.getElementById('messageDisplay');
@@ -158,9 +161,18 @@
             alertSound.play();
         }
 
+        let countdownInstance = null;
+        let emergency = true;
+
         function startCountdownOTAN() {
             const msg = document.getElementById('messageDisplay');
             msg.innerHTML = ' ';
+
+            if (countdownInstance) {
+                countdownInstance.stop();
+                countdownInstance = null;
+            }
+        
             $(function () {
                 FlipClock.Lang.Custom = { days: ' ', hours: ' ', minutes: ' ', seconds: ' ' };
                 var opts = {
@@ -169,24 +181,31 @@
                     language: 'Custom',
                     callbacks: {
                         stop: function () {
-                            stopCountdownEmergency();
+                                if (emergency){
+                                    stopCountdownEmergency();
+                                }
                         },
                         interval: function () {
                             wait(10)
                             playClockTickSound();
                         }
                     }
-
                 };
                 var countdown = (((new Date().getTime()) / 1000) + 0.5 * 60) - ((new Date().getTime()) / 1000);
                 countdown = Math.max(1, countdown);
-                $('.clock-builder-output').FlipClock(countdown, opts);
+                countdownInstance = $('.clock-builder-output').FlipClock(countdown, opts);
             });
         }
 
         function startCountdownRUS() {
             const msg = document.getElementById('messageDisplay');
             msg.innerHTML = ' ';
+
+            if (countdownInstance) {
+                countdownInstance.stop();
+                countdownInstance = null;
+            }
+        
             $(function () {
                 FlipClock.Lang.Custom = { days: ' ', hours: ' ', minutes: ' ', seconds: ' ' };
                 var opts = {
@@ -195,18 +214,19 @@
                     language: 'Custom',
                     callbacks: {
                         stop: function () {
-                            stopCountdownEmergency();
+                                if (emergency){
+                                    stopCountdownEmergency();
+                                }
                         },
                         interval: function () {
                             wait(10)
                             playClockTickSound();
                         }
                     }
-
                 };
                 var countdown = (((new Date().getTime()) / 1000) + 0.5 * 60) - ((new Date().getTime()) / 1000);
                 countdown = Math.max(1, countdown);
-                $('.clock-builder-output').FlipClock(countdown, opts);
+                countdownInstance = $('.clock-builder-output').FlipClock(countdown, opts);
             });
         }
 
@@ -215,37 +235,44 @@
             alertSound.play();
         }
 
-        function stopClockTickSound() {
-            const alertSound = document.getElementById('clock-tick');
-            alertSound.pause();
-        }
 
         function wait(ms) {
             return new Promise(resolve => {
                 setTimeout(resolve, ms);
             });
         }
+
+        let otanStart = false;
+        let rusoStart = false;
         
         enterButton.addEventListener('click', () => {
             // STOP COUNT OTAN
-            if (inputField.value === 'Й') {
+            if (inputField.value === 'Й' && rusoStart === true) {
+                rusoStart = false;
+                emergency = false;
                 stopCountdown();
             }
             // STOP COUNT RUS
-            else if (inputField.value === 'Ц') {
+            else if (inputField.value === 'Ц' && otanStart === true) {
+                otanStart = false;
+                emergency = false;
                 stopCountdown();
             }
             // START COUNT OTAN
             else if (inputField.value === 'У') {
+                emergency = true;
+                otanStart = true;
                 startCountdownOTAN();
             }
             // START COUNT RUS
             else if (inputField.value === 'К') {
+                emergency = true;
+                rusoStart = true;
                 startCountdownRUS();
             }
             // ERROR
             else {
-                alert('WROMG CODE');
+                alert('WRONG CODE');
             }
 
             const input = document.getElementById('inputCodes');
