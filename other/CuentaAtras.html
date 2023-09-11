@@ -123,6 +123,7 @@
         });
 
         function stopCountdown() {
+            stopClockTickSound();
             clearInterval(countdownInterval);
             countdownDisplay.innerHTML = " ";
             const messageDisplay = document.getElementById('messageDisplay');
@@ -130,6 +131,8 @@
         }
 
         function stopCountdownEmergency() {
+            stopClockTickSound();
+            
             clearInterval(countdownInterval);
             countdownDisplay.innerHTML = "";
             const msg = document.getElementById('messageDisplay');
@@ -212,12 +215,17 @@
             alertSound.play();
         }
 
+        function stopClockTickSound() {
+            const alertSound = document.getElementById('clock-tick');
+            alertSound.stop();
+        }
 
         function wait(ms) {
             return new Promise(resolve => {
                 setTimeout(resolve, ms);
             });
         }
+        
         enterButton.addEventListener('click', () => {
             // STOP COUNT OTAN
             if (inputField.value === 'Й') {
