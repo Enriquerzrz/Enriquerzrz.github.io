@@ -30,33 +30,20 @@
 
 <body>
     <img id="fullscreen-gif" src="./Resources/Radar.gif" alt="GIF animado">
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             var gif = document.getElementById("fullscreen-gif");
+            var body = document.body;
 
-            gif.onload = function () {
+            // Agregar un evento click al body
+            body.addEventListener("click", function () {
+                // Mostrar el GIF
+                gif.style.opacity = 1;
+                
+                // Redirigir después de 20 segundos (20000 ms)
                 setTimeout(function () {
-                    gif.style.opacity = 1;
-                    setTimeout(function () {
-                        window.location.href = "./other/CuentaAtras.html";
-                    }, 20000);
-                }, 2000);
-            };
-        });
-    </script>
-</body>
-
-</html>
-<body>
-    <img id="fullscreen-gif" src="./Resources/Radar.gif" alt="GIF no compatible con tu navegador.">
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var gif = document.getElementById("fullscreen-gif");
-
-            gif.addEventListener("animationend", function () {
-                window.location.href = "./other/CuentaAtras.html";
+                    window.location.href = "./other/CuentaAtras.html";
+                }, 20000);
             });
         });
     </script>

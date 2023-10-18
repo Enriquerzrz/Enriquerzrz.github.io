@@ -225,7 +225,7 @@ body {
 
 /* Estilo para la imagen 3 */
 .image3 {
-    width: 350px;
+    width: 500px;
     top: 10%;
     left: 70%;
     animation-name: blink3;

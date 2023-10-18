@@ -94,6 +94,11 @@
         Tu navegador no admite audio HTML5.
     </audio>
 
+    <audio id="exitSound" hidden>
+        <source src="../Resources/EvacuenAudio.m4a" type="audio/mpeg">
+        Tu navegador no admite audio HTML5.
+    </audio>
+
     <audio id="clock-tick" hidden>
         <source src="../Resources/beep.mp3" type="audio/mpeg">
         Tu navegador no admite audio HTML5.
@@ -145,20 +150,30 @@
             image1.src = '../Resources/danger1.png';
             image1.className = 'blinking-image image1';
 
-            const image2 = document.createElement('img');
-            image2.src = '../Resources/danger2.png';
-            image2.className = 'blinking-image image2';
-
             const image3 = document.createElement('img');
             image3.src = '../Resources/exit1.png';
             image3.className = 'blinking-image image3';
 
             document.body.appendChild(image1);
-            document.body.appendChild(image2);
             document.body.appendChild(image3);
 
             const alertSound = document.getElementById('alertSound');
+	    alertSound.loop = true;
+            alertSound.volume = 0.5;
             alertSound.play();
+
+            const exitSound = document.getElementById('exitSound');
+
+            function playExitSoundLoop() {
+                exitSound.play();
+               setTimeout(function () {
+                   exitSound.pause();
+                   exitSound.currentTime = 0;
+                   playExitSoundLoop();
+                       }, 5000);
+            }
+
+            playExitSoundLoop();
         }
 
         let countdownInstance = null;
@@ -191,7 +206,7 @@
                         }
                     }
                 };
-                var countdown = (((new Date().getTime()) / 1000) + 0.5 * 60) - ((new Date().getTime()) / 1000);
+                var countdown = (((new Date().getTime()) / 1000) + 1800) - ((new Date().getTime()) / 1000);
                 countdown = Math.max(1, countdown);
                 countdownInstance = $('.clock-builder-output').FlipClock(countdown, opts);
             });
@@ -224,7 +239,7 @@
                         }
                     }
                 };
-                var countdown = (((new Date().getTime()) / 1000) + 0.5 * 60) - ((new Date().getTime()) / 1000);
+                var countdown = (((new Date().getTime()) / 1000) + 1800) - ((new Date().getTime()) / 1000);
                 countdown = Math.max(1, countdown);
                 countdownInstance = $('.clock-builder-output').FlipClock(countdown, opts);
             });
@@ -246,34 +261,34 @@
         let rusoStart = false;
         
         enterButton.addEventListener('click', () => {
-            // STOP COUNT OTAN
-            if (inputField.value === 'Й' && rusoStart === true) {
+            // STOP COUNT PARA LOS OTAN (RUS ACTIVADO)
+            if (inputField.value === 'ВОЛКПОЛЯРНЫЙ' && rusoStart === true) {
                 rusoStart = false;
                 emergency = false;
                 stopCountdown();
             }
-            // STOP COUNT RUS
-            else if (inputField.value === 'Ц' && otanStart === true) {
+            // STOP COUNT PARA LOS RUS (OTAN ACTIVADO)
+            else if (inputField.value === 'СИБИРСКИЙТИГР' && otanStart === true) {
                 otanStart = false;
                 emergency = false;
                 stopCountdown();
             }
             // START COUNT OTAN
-            else if (inputField.value === 'У') {
+            else if (inputField.value === 'БЕЛОГОЛОВЫЙОРЕЛ') {
                 emergency = true;
                 otanStart = true;
                 startCountdownOTAN();
             }
             // START COUNT RUS
-            else if (inputField.value === 'К') {
+            else if (inputField.value === 'МЕДВЕДЬБУРЫЙ') {
                 emergency = true;
                 rusoStart = true;
                 startCountdownRUS();
             }
             // ERROR
             else {
-                alert('WRONG CODE');
-            }
+                alert("WRONG CODE");
+             }
 
             const input = document.getElementById('inputCodes');
             input.value = '';
@@ -285,3 +300,12 @@
 </body>
 
 </html>
+
+<!-- Equipo Ruso: -->
+<!-- Código de Activación Ruso: "OSOPARDO" (МЕДВЕДЬБУРЫЙ) -->
+<!-- Código de Desactivación Ruso: "LOBOARTICO" (ВОЛКПОЛЯРНЫЙ) -->
+
+<!-- Equipo OTAN: -->
+<!-- Código de Activación OTAN: "AGUILACALVA" (БЕЛОГОЛОВЫЙОРЕЛ) -->
+<!-- Código de Desactivación OTAN: "TIGRESIBERIANO" (СИБИРСКИЙТИГР) -->
+
