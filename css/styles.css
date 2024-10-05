@@ -1,0 +1,132 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	text-align: center;
+	background-image: url('../img/wallpaper.png');
+	/* Fondo suavizado */
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.container {
+	background-color: rgba(255, 255, 255, 0.8);
+	/* Fondo semitransparente */
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	width: 90%;
+	/* Asegura que ocupe el ancho disponible */
+	max-width: 400px;
+	/* Límites para pantallas más grandes */
+	margin: 20px 20px;
+	/* Asegura que el contenido no se pegue a los bordes en pantallas pequeñas */
+}
+
+h1 {
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+
+#coordinate-form {
+	margin-top: 20px;
+}
+
+.coordinates {
+	margin-bottom: 15px;
+}
+
+input[type="number"] {
+	width: 60px;
+	padding: 5px;
+	margin-right: 5px;
+}
+
+input[type="radio"] {
+	margin-right: 10px;
+}
+
+/* Estilo del botón cuando está desactivado */
+button {
+	padding: 10px 20px;
+	background-color: #cccccc;
+	/* Color gris cuando está desactivado */
+	color: #666666;
+	/* Texto más oscuro */
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: not-allowed;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Estilo del botón cuando está activado */
+button:enabled {
+	cursor: pointer;
+	background-color: #28a745;
+	/* Verde más llamativo */
+	color: #ffffff;
+}
+
+button:enabled:hover {
+	background-color: #218838;
+	/* Efecto hover al estar activado */
+}
+
+.responsive-image {
+	width: 100%;
+	height: auto;
+}
+
+#timer {
+	font-size: 48px;
+	margin-bottom: 20px;
+}
+
+video {
+	margin-top: 20px;
+}
+
+#timer {
+	font-size: 48px;
+	font-family: 'Courier New', Courier, monospace;
+	color: #ff0000;
+	/* Color rojo intenso */
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+#fire-btn {
+	padding: 15px 30px;
+	font-size: 18px;
+	background-color: #cccccc;
+	color: #666666;
+	border: none;
+	border-radius: 5px;
+	cursor: not-allowed;
+	transition: background-color 0.3s ease, color 0.3s ease;
+	text-align: center;
+}
+
+#fire-btn:enabled {
+	background-color: #dc3545;
+	/* Rojo de peligro cuando está activado */
+	color: white;
+	cursor: pointer;
+}
+
+#fire-btn:enabled:hover {
+	background-color: #c82333;
+	/* Efecto hover */
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Simulación de Lanzamiento</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			text-align: center;
+			background-image: url('img/wallpaper.png');
+			/* Fondo suavizado */
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+
+		.container {
+			background-color: rgba(255, 255, 255, 0.8);
+			/* Fondo semitransparente */
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			text-align: center;
+			width: 90%;
+			/* Asegura que ocupe el ancho disponible */
+			max-width: 400px;
+			/* Límites para pantallas más grandes */
+			margin: 20px 20px;
+			/* Asegura que el contenido no se pegue a los bordes en pantallas pequeñas */
+		}
+
+		#timer {
+			font-size: 48px;
+			font-family: 'Courier New', Courier, monospace;
+			color: #ff0000;
+			/* Color rojo */
+			margin-bottom: 20px;
+			text-align: center;
+		}
+
+		#fire-btn {
+			padding: 15px 30px;
+			font-size: 18px;
+			background-color: #cccccc;
+			/* Botón inicialmente deshabilitado (gris) */
+			color: #666666;
+			border: none;
+			border-radius: 5px;
+			cursor: not-allowed;
+			transition: background-color 0.3s ease, color 0.3s ease;
+			text-align: center;
+		}
+
+		#fire-btn:enabled {
+			background-color: #dc3545;
+			/* Rojo cuando está activado */
+			color: white;
+			cursor: pointer;
+		}
+
+		#fire-btn:enabled:hover {
+			background-color: #c82333;
+			/* Efecto hover */
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Lanzamiento en:</h1>
+		<!-- Div que mostrará el temporizador -->
+		<div id="timer">01:00</div>
+
+		<!-- Botón de disparo, inicialmente deshabilitado -->
+		<button id="fire-btn" disabled>DISPARAR</button>
+	</div>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			// Elemento del DOM donde se mostrará el temporizador
+			const timerElement = document.getElementById('timer');
+			const fireButton = document.getElementById('fire-btn');
+
+			// Tiempo total en segundos (1 minuto = 60 segundos)
+			let countdownTime = 60;
+
+			// Función para actualizar el temporizador en el DOM
+			function updateTimer() {
+				// Calcular minutos y segundos
+				const minutes = Math.floor(countdownTime / 60);
+				const seconds = countdownTime % 60;
+
+				// Actualizar el contenido del temporizador en formato mm:ss
+				timerElement.textContent =
+					`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+				// Cuando el tiempo llegue a cero
+				if (countdownTime <= 0) {
+					clearInterval(countdownInterval); // Detener el intervalo
+					fireButton.disabled = false; // Habilitar el botón de disparo
+					fireButton.style.backgroundColor = "#dc3545"; // Cambiar el color a rojo
+				} else {
+					countdownTime--; // Reducir el tiempo en 1 segundo
+				}
+			}
+
+			// Iniciar la cuenta regresiva
+			const countdownInterval = setInterval(updateTimer, 1000); // Cada segundo
+
+			// Evento para manejar el clic en el botón de disparo
+			fireButton.addEventListener('click', function () {
+				window.location.href = "screen2_5.html"; // Redirigir a la pantalla 3
+			});
+		});
+	</script>
+</body>
+
+</html>

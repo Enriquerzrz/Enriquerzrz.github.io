@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Alimentar el Mortero</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			text-align: center;
+			background-image: url('img/wallpaper.png');
+			/* Fondo suavizado */
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+
+		.container {
+			background-color: rgba(255, 255, 255, 0.8);
+			/* Fondo semitransparente */
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+			text-align: center;
+			width: 90%;
+			/* Asegura que ocupe el ancho disponible */
+			max-width: 400px;
+			/* Límites para pantallas más grandes */
+			margin: 20px 20px;
+			/* Asegura que el contenido no se pegue a los bordes en pantallas pequeñas */
+		}
+
+		#load-btn {
+			padding: 15px 30px;
+			font-size: 18px;
+			background-color: #28a745;
+			/* Verde llamativo */
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		#load-btn:hover {
+			background-color: #218838;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>ALIMENTAR EL MORTERO Y ABRIR FUEGO</h1>
+		<!-- Botón para continuar a la Pantalla 3 -->
+		<button id="load-btn">CARGADO Y DISPARADO</button>
+	</div>
+
+	<script>
+		document.getElementById('load-btn').addEventListener('click', function () {
+			window.location.href = 'screen3.html'; // Redirigir a la pantalla 3
+		});
+	</script>
+</body>
+
+</html>

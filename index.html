@@ -2,51 +2,44 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Inicio</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-image: url('./Resources/plantilla_Portada.png');
-            background-size: 100vw 100vh;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            overflow: hidden;
-        }
-
-        #fullscreen-gif {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-    </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mortero</title>
+	<link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body>
-    <img id="fullscreen-gif" src="./Resources/Radar.gif" alt="GIF animado">
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var gif = document.getElementById("fullscreen-gif");
-            var body = document.body;
+<div>
+	<div class="container">
+		<h1>Mortero</h1>
+		<div id="image-container">
+			<img src="img/earth.gif" alt="Earth" class="responsive-image">
+		</div>
 
-            // Agregar un evento click al body
-            body.addEventListener("click", function () {
-                // Mostrar el GIF
-                gif.style.opacity = 1;
-                
-                // Redirigir después de 20 segundos (20000 ms)
-                setTimeout(function () {
-                    window.location.href = "./other/CuentaAtras.html";
-                }, 20000);
-            });
-        });
-    </script>
-</body>
+		<div>
+			<h4>Introduce las coordenadas:</h4>
+		</div>
+		<div id="coordinate-form">
+			<div class="coordinates">
+				<input type="number" id="lat-degree" placeholder="Grados N/S" max="90" min="0">
+				<input type="number" id="lat-minute" placeholder="Minutos" max="59" min="0">
+				<input type="number" id="lat-second" placeholder="Segundos" max="59" min="0">
+				<input type="radio" id="north" name="lat-direction" value="N"> N
+				<input type="radio" id="south" name="lat-direction" value="S"> S
+			</div>
+
+			<div class="coordinates">
+				<input type="number" id="lon-degree" placeholder="Grados E/W" max="180" min="0">
+				<input type="number" id="lon-minute" placeholder="Minutos" max="59" min="0">
+				<input type="number" id="lon-second" placeholder="Segundos" max="59" min="0">
+				<input type="radio" id="west" name="lon-direction" value="W"> W
+				<input type="radio" id="east" name="lon-direction" value="E"> E
+			</div>
+
+			<button id="set-coordinates" disabled>SET COORDINATES</button>
+		</div>
+	</div>
+
+	<script src="js/script.js"></script>
+	</body>
 
 </html>
