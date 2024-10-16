@@ -47,8 +47,22 @@ h1 {
 	margin-bottom: 15px;
 }
 
+.coordinates h5,
+.coordinates input {
+	display: inline-block;
+}
+
+.coordinates h5 {
+	margin: 0 10px 0 0;
+	/* Espacio entre el h5 y el input */
+	width: 50px;
+	/* Ajusta el ancho para que '30 T' y 'E' queden alineados */
+	text-align: right;
+	/* Alinea el texto a la derecha */
+}
+
 input[type="number"] {
-	width: 60px;
+	width: 70%;
 	padding: 5px;
 	margin-right: 5px;
 }
