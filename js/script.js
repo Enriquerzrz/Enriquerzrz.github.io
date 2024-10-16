@@ -1,17 +1,10 @@
 // Pantalla 1: Validación de coordenadas
 document.getElementById('set-coordinates').addEventListener('click', function () {
 	const latDegree = document.getElementById('lat-degree').value;
-	const latMinute = document.getElementById('lat-minute').value;
-	const latSecond = document.getElementById('lat-second').value;
 	const lonDegree = document.getElementById('lon-degree').value;
-	const lonMinute = document.getElementById('lon-minute').value;
-	const lonSecond = document.getElementById('lon-second').value;
-	const latDirection = document.querySelector('input[name="lat-direction"]:checked').value;
-	const lonDirection = document.querySelector('input[name="lon-direction"]:checked').value;
 
 	// Validar si las coordenadas son correctas (10° 0' 10" N, 0° 10' 0" W)
-	if (latDegree == 10 && latMinute == 0 && latSecond == 10 && latDirection == 'N' &&
-		lonDegree == 0 && lonMinute == 10 && lonSecond == 0 && lonDirection == 'W') {
+	if (latDegree == 449491 && lonDegree == 4535159) {
 		window.location.href = "screen2.html";
 	} else {
 		alert("Coordenadas incorrectas, intenta de nuevo.");
@@ -19,23 +12,17 @@ document.getElementById('set-coordinates').addEventListener('click', function ()
 });
 
 // Habilitar el botón cuando se ingrese algo en los campos de texto
-const fields = document.querySelectorAll('input[type="number"], input[type="radio"]');
+const fields = document.querySelectorAll('input[type="number"]');
 fields.forEach(field => {
 	field.addEventListener('input', checkInputs);
 });
 
 function checkInputs() {
 	const latDegree = document.getElementById('lat-degree').value;
-	const latMinute = document.getElementById('lat-minute').value;
-	const latSecond = document.getElementById('lat-second').value;
 	const lonDegree = document.getElementById('lon-degree').value;
-	const lonMinute = document.getElementById('lon-minute').value;
-	const lonSecond = document.getElementById('lon-second').value;
-	const latDirection = document.querySelector('input[name="lat-direction"]:checked');
-	const lonDirection = document.querySelector('input[name="lon-direction"]:checked');
 
 	// Si todos los campos están llenos, habilita el botón
-	if (latDegree && latMinute && latSecond && lonDegree && lonMinute && lonSecond && latDirection && lonDirection) {
+	if (latDegree && lonDegree) {
 		document.getElementById('set-coordinates').disabled = false;
 	} else {
 		document.getElementById('set-coordinates').disabled = true;
