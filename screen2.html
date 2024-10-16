@@ -76,7 +76,7 @@
 	<div class="container">
 		<h1>Lanzamiento en:</h1>
 		<!-- Div que mostrará el temporizador -->
-		<div id="timer">01:00</div>
+		<div id="timer">45:00</div>
 
 		<!-- Botón de disparo, inicialmente deshabilitado -->
 		<button id="fire-btn" disabled>DISPARAR</button>
@@ -89,7 +89,7 @@
 			const fireButton = document.getElementById('fire-btn');
 
 			// Tiempo total en segundos (1 minuto = 60 segundos)
-			let countdownTime = 60;
+			let countdownTime = 60 * 45;
 
 			// Función para actualizar el temporizador en el DOM
 			function updateTimer() {
